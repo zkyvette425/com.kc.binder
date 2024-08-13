@@ -1,0 +1,16 @@
+{
+    "name": "KC.Binder.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:7220b7cca9efa094e8f4f3797cf0542b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
