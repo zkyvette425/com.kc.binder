@@ -19,16 +19,26 @@ namespace KC
                 return;
             }
 
-            if (!GUILayout.Button("Build"))
+            if (GUILayout.Button("Build"))
             {
-                return;
+                Build();
             }
 
+            if (GUILayout.Button("Import"))
+            {
+                Import();
+            }
+        }
+
+        private void Build()
+        {
             if (!target.CheckValid())
             {
                 return;
             }
 
+            Debug.Log(target.GetType().Assembly);
+            
             var info = target.GetClassInfo();
             if (info == null)
             {
@@ -43,6 +53,23 @@ namespace KC
             
             AssetDatabase.Refresh();
             Debug.Log($"构建 {info.ClassName} 到路径:{path} 成功");
+        }
+
+        private void Import()
+        {
+            if (!target.CheckValid())
+            {
+                return;
+            }
+
+            var import = target.GetImportCodeObject();
+            if (import == null)
+            {
+                return;
+            }
+
+            var message = import.ImportToView(target);
+            Debug.Log(message);
         }
     }
 }

@@ -67,7 +67,7 @@ namespace KC
             var name = target.GetType().Name;
             if (!name.EndsWith("View"))
             {
-                Debug.LogWarning($"本次构建Binder失败,目标:{target.GetType().FullName}需要以View结尾,如:{target.GetType().Name}View,去除View后就是使用时的名称");
+                Debug.LogWarning($"目标:{target.GetType().FullName}需要以View结尾,如:{target.GetType().Name}View,去除View后就是使用时的名称");
                 return false;
             }
             return true;
@@ -154,6 +154,8 @@ namespace KC
             }
             stringBuilder.AppendLine(Space8+"}");
             stringBuilder.AppendLine(Space4+"}\n}");
+            
+            
             return stringBuilder.ToString();
         }
 
@@ -166,6 +168,70 @@ namespace KC
             }
             File.Create(path).Dispose();
             File.WriteAllText(path,content);
+        }
+
+        internal static object GetImportCodeObject(this Object target)
+        {
+            var type = target.GetType();
+            
+            var attribute = type.GetCustomAttribute<BinderAttribute>();
+            if (attribute == null)
+            {
+                Debug.LogWarning($"导入Binder无效,请确保目标:{target.GetType().FullName}拥有标签:BinderAttribute");
+                return null;
+            }
+
+            var codeClassName = type.Name[..^4];
+            string path = $"{Path.Combine(Application.dataPath, attribute.Path, codeClassName)}.cs";
+            if (!File.Exists(path))
+            {
+                Debug.LogWarning($"导入Binder无效,请确保目标:{target.GetType().FullName}拥有在指定路径:{path} 存在脚本");
+                return null;
+            }
+
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            foreach (var assembly in assemblies)
+            {
+                if (!assembly.CodeBase.Contains("KC"))
+                {
+                    continue;
+                }
+                var types = assembly.GetTypes();
+                foreach (var temp in types)
+                {
+                    if (temp.Name == codeClassName)
+                    {
+                        var instance = Activator.CreateInstance(temp,new object[]{ ((BaseBinderView)target).transform });
+                        return instance;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        internal static string ImportToView(this object import, Object target)
+        {
+            var importFields = import.GetType().GetRuntimeFields();
+            var targetFields = target.GetType().GetRuntimeFields();
+
+            string name = null;
+            foreach (var targetField in targetFields)
+            {
+                foreach (var importField in importFields)
+                {
+                    if (importField.Name == targetField.Name && importField.FieldType == targetField.FieldType)
+                    {
+                        targetField.SetValue(target,importField.GetValue(import));
+                        name += $"{targetField.FieldType} : {targetField.Name},\n";
+                        break;
+                    }
+                }
+            }
+
+            return string.IsNullOrEmpty(name)
+                ? $"{import.GetType().FullName} 导入至:{target.GetType().FullName} 完成,但无任何字段导入成功."
+                : $"{import.GetType().FullName} 成功导入至:{target.GetType().FullName} ,本次导入成功字段为:\n{name.TrimEnd(',')}";
         }
         
         private static void GenerateGetComponentInfo(Transform transform,StringBuilder stringBuilder, IList<BinderMemberInfo> memberInfos,IList<Transform> nodes,string arrayMemberName,string space)
@@ -206,7 +272,7 @@ namespace KC
         {
             if (fieldInfo.FieldType.BaseType != null && fieldInfo.FieldType.BaseType == typeof(Array))
             {
-                var objs = GetValue(fieldInfo,target) as Object[];
+                var objs = fieldInfo.GetValue(target) as Object[];
                 if (objs == null)
                 {
                     Debug.LogWarning($"目标:{target.GetType().FullName} 数组字段{fieldInfo}不生成,其值为空");
