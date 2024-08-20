@@ -15,7 +15,6 @@ namespace KC
 
             if (EditorApplication.isPlaying)
             {
-                Debug.LogWarning("运行时为了避免误操作,无法生成代码");
                 return;
             }
 
