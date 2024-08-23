@@ -1,8 +1,12 @@
 {
     "name": "KC.Binder.Editor",
     "rootNamespace": "KC",
-    "references": [],
-    "includePlatforms": [],
+    "references": [
+        "GUID:06a7971e006abbe46ae082515b1fdec1"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
