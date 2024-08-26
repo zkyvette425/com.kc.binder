@@ -1,11 +1,13 @@
 {
-    "name": "com.kc.binder",
-    "version": "0.0.1",
-    "displayName": "KC.Binder",
-    "description": "绑定工具，转化unity拖拽为相应代码",
-
+	"name": "com.kc.binder",
+	"displayName":"KC.Binder",
+	"version": "0.1.0",
+	"unity": "2022.3",
+	"description": "绑定工具，转化unity拖拽为相应代码",
     "author": {
       "name": "KunZhou",
       "email": "450228418@qq.com"
-    }
-  }
+    },
+	"dependencies": {
+	}
+}

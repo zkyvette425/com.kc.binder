@@ -2,7 +2,7 @@
     "name": "KC.Binder.Editor",
     "rootNamespace": "KC",
     "references": [
-        "GUID:06a7971e006abbe46ae082515b1fdec1"
+        "GUID:2e71c3f976457944f958412a1ebe59df"
     ],
     "includePlatforms": [
         "Editor"
