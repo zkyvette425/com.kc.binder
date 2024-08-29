@@ -1,13 +1,24 @@
 {
-	"name": "com.kc.binder",
-	"displayName":"KC.Binder",
-	"version": "0.1.0",
-	"unity": "2022.3",
-	"description": "绑定工具，转化unity拖拽为相应代码",
-    "author": {
-      "name": "KunZhou",
-      "email": "450228418@qq.com"
-    },
-	"dependencies": {
-	}
+  "name": "com.kc.binder",
+  "displayName": "KC.Binder",
+  "version": "0.1.1",
+  "unity": "2022.3",
+  "description": "\u7ed1\u5b9a\u5de5\u5177\uff0c\u8f6c\u5316unity\u62d6\u62fd\u4e3a\u76f8\u5e94\u4ee3\u7801",
+  "author": "KunZhou <450228418@qq.com>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/zkyvette425/com.kc.binder.git"
+  },
+  "keywords": [
+    "kc"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zkyvette425/com.kc.binder/issues"
+  },
+  "homepage": "https://github.com/zkyvette425/com.kc.binder#readme"
 }
