@@ -89,7 +89,7 @@ namespace KC
             {
                 stringBuilder.AppendLine(string.Format(annotation,Space4,classInfo.Annotation));
             }
-            stringBuilder.AppendLine($"{Space4}public class {classInfo.ClassName}");
+            stringBuilder.AppendLine($"{Space4}public partial class {classInfo.ClassName}");
             stringBuilder.AppendLine("    {");
 
             stringBuilder.AppendLine($"{Space8}public readonly UnityEngine.Transform Self;\n");

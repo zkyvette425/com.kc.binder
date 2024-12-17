@@ -1,7 +1,7 @@
 {
   "name": "com.kc.binder",
   "displayName": "KC.Binder",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "unity": "2022.3",
   "description": "\u7ed1\u5b9a\u5de5\u5177\uff0c\u8f6c\u5316unity\u62d6\u62fd\u4e3a\u76f8\u5e94\u4ee3\u7801",
   "author": "KunZhou <450228418@qq.com>",

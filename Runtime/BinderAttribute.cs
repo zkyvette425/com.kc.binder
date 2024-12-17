@@ -8,7 +8,7 @@ namespace KC
         
         public string Path { get; private set; }
 
-        public BinderAttribute(string path , string annotation = null)
+        public BinderAttribute(string path = null, string annotation = null)
         {
             Annotation = annotation;
 
